@@ -20,6 +20,10 @@ func (m *MemoryStore) Put(collection, key string, value []byte) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
+	if _, exists := m.data[collection][key]; !exists {
+		return fmt.Errorf("key already exists")
+	}
+
 	if _, err := m.data[collection]; !err {
 		m.data[collection] = make(map[string][]byte)
 	}

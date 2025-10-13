@@ -3,6 +3,7 @@ package badger
 
 import (
 	"log"
+	"fmt"
 	"github.com/dgraph-io/badger/v4"
 )
 
@@ -28,8 +29,21 @@ func (b *BadgerStore) Close() error {
     return b.db.Close()
 }
 
+func (b *BadgerStore) Exists(collection, key string) bool {
+	_, err := b.Get(collection, key)
+
+	if err != nil {
+		return false
+	}
+
+	return true
+}
 
 func (b *BadgerStore) Put(collection, key string, value []byte) error {
+	if b.Exists(collection, key) {
+		return fmt.Errorf("key already exists")
+	}
+
 	bytesKey := []byte(collection + "/" + key)
 
 	err := b.db.Update((func(txn *badger.Txn) error {

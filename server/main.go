@@ -37,7 +37,6 @@ func main() {
 		http.HandleFunc("/delete", handler.DeleteHandler)
 	}
 	
-
 	log.Println("Starting storage on :8080")
 	http.ListenAndServe(":8080", nil)
 }
