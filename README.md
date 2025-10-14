@@ -25,5 +25,5 @@ curl "http://localhost:8080/get?collection=coll_name&key=k_name"
 3. DELETE
 
 ```
-curl -i -X DELETE http://localhost:8080/delete?collection=coll_name&key=k_name
+curl -i -X DELETE "http://localhost:8080/delete?collection=coll_name&key=k_name"
 ```
